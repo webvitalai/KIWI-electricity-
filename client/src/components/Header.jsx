@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   TelephoneFill,
-  LightningChargeFill,
   List,
   X,
   ShieldCheck,
@@ -30,46 +29,40 @@ const Header = () => {
     <>
       <style>{`
         .neo-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  padding: 0;
-  transition: 0.35s ease;
-}
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 9999;
+          padding: 0;
+          transition: 0.35s ease;
+        }
 
-.neo-nav {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  height: 82px;
-  padding: 0 32px;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+        .neo-nav {
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          height: 86px;
+          padding: 0 32px;
+          border-radius: 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: rgba(255, 255, 255, 0.72);
+          backdrop-filter: blur(22px);
+          -webkit-backdrop-filter: blur(22px);
+          border-bottom: 1px solid rgba(255,255,255,0.5);
+          box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+          overflow: hidden;
+          position: relative;
+        }
 
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(22px);
-
-  border-bottom: 1px solid rgba(255,255,255,0.5);
-
-  box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
-
-  overflow: hidden;
-  position: relative;
-}
-
-.neo-header.scrolled .neo-nav {
-  height: 74px;
-
-  background: rgba(2, 6, 23, 0.9);
-
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-
-  box-shadow: 0 20px 55px rgba(0,0,0,0.35);
-}
+        .neo-header.scrolled .neo-nav {
+          height: 78px;
+          background: rgba(2, 6, 23, 0.9);
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          box-shadow: 0 20px 55px rgba(0,0,0,0.35);
+        }
 
         .neo-nav::before {
           content: "";
@@ -84,36 +77,50 @@ const Header = () => {
         .neo-brand {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 8px;
           text-decoration: none;
           z-index: 2;
+          min-width: 0;
+          flex-shrink: 0;
         }
 
-        .brand-icon-wrap {
-          position: relative;
-          width: 48px;
-          height: 48px;
-          border-radius: 17px;
+        .brand-logo-wrap {
+          width: 82px;
+          height: 70px;
+          min-width: 82px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: linear-gradient(135deg, #2563eb, #06b6d4);
-          color: white;
-          box-shadow: 0 16px 35px rgba(37, 99, 235, 0.35);
-          animation: iconPulse 2.5s infinite ease-in-out;
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          overflow: visible;
         }
 
-        .brand-icon-wrap::after {
-          content: "";
-          position: absolute;
-          inset: -6px;
-          border-radius: 22px;
-          border: 1px solid rgba(37, 99, 235, 0.35);
-          animation: iconRing 2s infinite ease-out;
+        .brand-logo-img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          filter:
+            brightness(1.08)
+            contrast(1.18)
+            saturate(1.12)
+            drop-shadow(0 5px 10px rgba(37, 99, 235, 0.22));
+          transition: 0.35s ease;
         }
 
-        .brand-icon-wrap svg {
-          font-size: 25px;
+        .neo-brand:hover .brand-logo-img {
+          transform: scale(1.06);
+        }
+
+        .brand-text {
+          margin-left: -3px;
+          min-width: 0;
         }
 
         .brand-text strong {
@@ -123,6 +130,7 @@ const Header = () => {
           letter-spacing: -0.05em;
           color: #0f172a;
           line-height: 1;
+          white-space: nowrap;
         }
 
         .brand-text span {
@@ -133,6 +141,7 @@ const Header = () => {
           letter-spacing: 0.22em;
           color: #2563eb;
           margin-top: 5px;
+          white-space: nowrap;
         }
 
         .neo-header.scrolled .brand-text strong {
@@ -159,6 +168,7 @@ const Header = () => {
           padding: 12px 16px;
           border-radius: 16px;
           transition: 0.3s ease;
+          white-space: nowrap;
         }
 
         .desktop-links a:hover {
@@ -181,6 +191,7 @@ const Header = () => {
           align-items: center;
           gap: 10px;
           z-index: 2;
+          flex-shrink: 0;
         }
 
         .status-pill {
@@ -229,6 +240,7 @@ const Header = () => {
           display: none;
           width: 46px;
           height: 46px;
+          min-width: 46px;
           border: 0;
           border-radius: 16px;
           background: #0f172a;
@@ -241,7 +253,7 @@ const Header = () => {
 
         .mobile-panel {
           position: fixed;
-          top: 86px;
+          top: 92px;
           left: 18px;
           right: 18px;
           z-index: 9998;
@@ -249,6 +261,7 @@ const Header = () => {
           padding: 22px;
           background: rgba(15, 23, 42, 0.94);
           backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
           box-shadow: 0 35px 80px rgba(15, 23, 42, 0.38);
           border: 1px solid rgba(255, 255, 255, 0.12);
           transform: translateY(-18px) scale(0.96);
@@ -305,19 +318,20 @@ const Header = () => {
           100% { transform: translateX(100%); }
         }
 
-        @keyframes iconPulse {
-          0%, 100% { transform: rotate(0deg) scale(1); }
-          50% { transform: rotate(-6deg) scale(1.08); }
-        }
-
-        @keyframes iconRing {
-          0% {
-            opacity: 0.8;
-            transform: scale(0.9);
+        @media (max-width: 1120px) {
+          .desktop-links {
+            gap: 4px;
           }
-          100% {
-            opacity: 0;
-            transform: scale(1.3);
+
+          .desktop-links a {
+            padding: 11px 12px;
+            font-size: 13px;
+          }
+
+          .brand-logo-wrap {
+            width: 76px;
+            height: 66px;
+            min-width: 76px;
           }
         }
 
@@ -333,23 +347,87 @@ const Header = () => {
           }
 
           .neo-nav {
+            height: 78px;
+            padding: 0 18px;
+          }
+
+          .neo-header.scrolled .neo-nav {
             height: 74px;
-             padding: 0 18px;
+          }
+
+          .brand-logo-wrap {
+            width: 70px;
+            height: 60px;
+            min-width: 70px;
           }
 
           .brand-text strong {
             font-size: 17px;
           }
+
+          .mobile-panel {
+            top: 84px;
+          }
         }
 
-        @media (max-width: 420px) {
+        @media (max-width: 520px) {
+          .neo-nav {
+            padding: 0 14px;
+          }
+
+          .neo-brand {
+            gap: 5px;
+          }
+
+          .brand-logo-wrap {
+            width: 62px;
+            height: 54px;
+            min-width: 62px;
+          }
+
+          .brand-text {
+            margin-left: -2px;
+          }
+
+          .brand-text strong {
+            font-size: 15.5px;
+          }
+
+          .brand-text span {
+            font-size: 8.5px;
+            letter-spacing: 0.14em;
+          }
+
+          .menu-btn {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+          }
+
+          .mobile-panel {
+            left: 12px;
+            right: 12px;
+            top: 84px;
+          }
+
+          .mobile-actions {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 390px) {
           .brand-text span {
             display: none;
           }
 
-          .brand-icon-wrap {
-            width: 44px;
-            height: 44px;
+          .brand-logo-wrap {
+            width: 56px;
+            height: 50px;
+            min-width: 56px;
+          }
+
+          .brand-text strong {
+            font-size: 14px;
           }
 
           .neo-nav {
@@ -361,8 +439,12 @@ const Header = () => {
       <header className={`neo-header ${scrolled ? "scrolled" : ""}`}>
         <div className="neo-nav">
           <a href="/" className="neo-brand">
-            <div className="brand-icon-wrap">
-              <LightningChargeFill />
+            <div className="brand-logo-wrap">
+              <img
+                src="/Images/Logo.png"
+                alt="KIWI POWER Services London Logo"
+                className="brand-logo-img"
+              />
             </div>
 
             <div className="brand-text">
@@ -390,7 +472,12 @@ const Header = () => {
               Emergency Call
             </a>
 
-            <button className="menu-btn" onClick={() => setOpen(!open)}>
+            <button
+              className="menu-btn"
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+              type="button"
+            >
               {open ? <X /> : <List />}
             </button>
           </div>
