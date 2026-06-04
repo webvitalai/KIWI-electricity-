@@ -598,7 +598,7 @@ const Footer = () => {
                 <div className="contact-item">
                   <EnvelopeFill />
                   <a href="mailto:info@kiwipower.co.uk">
-                    info@kiwipower.co.uk
+                    info@kiwipowered.co.uk
                   </a>
                 </div>
               </div>

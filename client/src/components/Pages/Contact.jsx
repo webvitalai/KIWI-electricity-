@@ -447,8 +447,8 @@ const Contact = () => {
                                     <div>
                                         <h4>Email Us</h4>
 
-                                        <a href="mailto:info@kiwipower.co.uk">
-                                            info@kiwipower.co.uk
+                                        <a href="mailto:info@kiwipowered.co.uk">
+                                            info@kiwipowered.co.uk
                                         </a>
                                     </div>
                                 </div>
