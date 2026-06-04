@@ -582,7 +582,7 @@ const Home = () => {
                     </a>
 
                     <a
-                      href="https://wa.me/442012345678"
+                      href="https://wa.me/442071831030"
                       target="_blank"
                       rel="noreferrer"
                       className="btn-outline"
